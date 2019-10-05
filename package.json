@@ -1,0 +1,19 @@
+{
+  "name": "imagemanagmenet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/alexx29/ImageManagmenet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexx29/ImageManagmenet/issues"
+  },
+  "homepage": "https://github.com/alexx29/ImageManagmenet#readme"
+}
