@@ -1,6 +1,5 @@
 import React from "react";
-import { Stage, Layer, Group } from "react-konva";
-import Rectangle from './Rectangle.jsx';
+import Editable from './Editable.jsx';
 
 class Editable extends React.Component {
     constructor(props){
@@ -84,30 +83,11 @@ class Editable extends React.Component {
             selectedId,
         } = this.state;
         return (
-            <Stage
-              width={window.innerWidth}
-              height={window.innerHeight}
-              onMouseDown={this.onMouseDown}
-              onMouseUp={this.mapClick}
-              onMouseMove={this.drawNewShape}
-            >
-                <Layer>
-                <Group ref={this.groupRef}>
-                {rectangles.map((rect, i) => {
-                  return (
-                    <Rectangle
-                      key={i}
-                      shapeProps={rect}
-                      isSelected={rect.id === selectedId}
-                      onSelect={this.selectRectangle(rect.id)}
-                      onChange={this.changeRectangles(i)}
-                    />
-                  );
-                })}
-                </Group>
-              </Layer>
-            </Stage>
-          );
+         <Editable
+            rectangles={rectangles}
+            selectedId={selectedId}
+         />
+        );
     }
 }
 
