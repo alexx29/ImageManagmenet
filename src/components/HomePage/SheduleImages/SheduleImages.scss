@@ -1,0 +1,14 @@
+.sheduleImages {
+    display: flex;
+    height: auto;
+    width: 80%;
+    margin: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .image {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+    }
+}

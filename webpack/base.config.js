@@ -22,7 +22,6 @@ module.exports = {
               loader: "sass-loader", options: {
                 limit: 1024,
                 sourceMap: true,
-                data: '@import "assets/styles/colors"; @import "assets/styles/sizes";',
                 includePaths: [path.join(__dirname, '../src')],
               },
             },

@@ -7,7 +7,6 @@ const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }) => {
 
   React.useEffect(() => {
     if (isSelected) {
-      // we need to attach transformer manually
       trRef.current.setNode(shapeRef.current);
       trRef.current.getLayer().batchDraw();
     }
@@ -31,16 +30,11 @@ const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }) => {
             y: e.target.y()
           });
         }}
-        onTransformStart={e=> console.log('transofrm')}
-        onTransform={e => console.log('asd')}
         onTransformEnd={e => {
-            // console.log(e)
-          // transformer is changing scale
           const node = shapeRef.current;
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
 
-          // we will reset it back
           node.scaleX(1);
           node.scaleY(1);
           onChange({

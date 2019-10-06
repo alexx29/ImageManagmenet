@@ -6,7 +6,7 @@ const App = () => {
     return (
       <Router>
           <Switch>
-            <Route path="/Editable">
+            <Route path="/Editable:code">
               <EditableContainer />
             </Route>
             <Route path="/">

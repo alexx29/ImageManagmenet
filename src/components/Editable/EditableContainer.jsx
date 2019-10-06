@@ -3,31 +3,34 @@ import Editable from './Editable.jsx';
 
 class EditableContainer extends React.Component {
     state = {
-        rectangles: [ ],
+        rectangles: [],
         paint: false,
-    }
+    };
 
     changeRectangles = i => newAttrs => {
         const { rectangles } = this.state;
         const rects = rectangles.slice();
         rects[i] = newAttrs;
         this.setState({ rectangles: rects })
-    }
+    };
 
-    createNewRectangles = (recData) => {
-        const { rectangles } = this.state;
-        this.setState({ rectangles: [...rectangles, recData] })
-    }
+    createNewRectangles = recData => {
+        this.setState(prevState => ({ 
+            rectangles: [...prevState.rectangles, recData]
+            })
+        );
+    };
 
-    onPaiting = () => {
-        this.setState(prevState => ({ paint: !prevState.paint }));
-    }
+    onPaiting = paint => {
+        this.setState({ paint });
+    };
 
     render() {
         const {
             rectangles,
             paint,
         } = this.state;
+
         return (
             <Editable
                rectangles={rectangles}

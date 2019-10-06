@@ -3,45 +3,50 @@ import { Stage, Layer, Group } from "react-konva";
 import Rectangle from './Rectangle.jsx';
 
 class Editable extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.groupRef = React.createRef();
         this.state = {
             selectedId: '',
-        }
+        };
     }
 
     getRelativePointerPosition= () => {
-        let transform = this.groupRef.current.getAbsoluteTransform().copy();
+        const node = this.groupRef.current;
+        let transform = node.getAbsoluteTransform().copy();
         transform.invert();
 
-        const pos = this.groupRef.current.getStage().getPointerPosition();
+        const pos = node.getStage().getPointerPosition();
         return transform.point(pos);
     };
     
     selectRectangle = id => () => {
+        const { onPaiting } = this.props;
+        onPaiting(false);
         this.setState({ selectedId: id })
     };
 
-    mapClick = e => {
-        const { onPaiting } = this.props;
+    onMouseUp = e => {
+        const { onPaiting, paint } = this.props;
         const clickedOnEmpty = e.target === e.target.getStage();
-        onPaiting();
-        if (clickedOnEmpty) {
-            this.selectRectangle(null)();
+        if (clickedOnEmpty && paint) {
+           return this.selectRectangle(null)();
         }
+
+        return onPaiting(false);
     };
 
     onMouseDown = e => {
         const { createNewRectangles, onPaiting } = this.props;
         if((e.target === e.target.getStage())) {
-          onPaiting();
+          this.selectRectangle(null)();
+          onPaiting(true);
           const pos = this.getRelativePointerPosition();
           createNewRectangles({
               x:pos.x,
               y:pos.y,
-              width: 1,
-              height: 1,
+              width: 0,
+              height: 0,
               id: Math.random() * 100
           })
         }
@@ -69,15 +74,15 @@ class Editable extends React.Component {
               width={window.innerWidth}
               height={window.innerHeight}
               onMouseDown={this.onMouseDown}
-              onMouseUp={this.mapClick}
+              onMouseUp={this.onMouseUp}
               onMouseMove={this.drawNewShape}
             >
-                <Layer>
-                <Group ref={this.groupRef}>
+                <Layer key="layer">
+                <Group key="group" ref={this.groupRef}>
                 {rectangles.map((rect, i) => {
                   return (
                     <Rectangle
-                      key={i}
+                      key={rect.id}
                       shapeProps={rect}
                       isSelected={rect.id === selectedId}
                       onChange={changeRectangles(i)}
